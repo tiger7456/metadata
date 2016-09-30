@@ -11,7 +11,7 @@
 namespace xts
 {
 
-	class METADATA_DECL PropertyInfo
+	class XTS_DECL PropertyInfo
 	{
 	public:
 		PropertyInfo()

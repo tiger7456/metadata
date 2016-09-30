@@ -18,7 +18,7 @@ namespace xts
 
 	class DestructInfo;
 
-	class METADATA_DECL ClassInfo
+	class XTS_DECL ClassInfo
 	{
 	public:
 		typedef std::list < ClassInfo * > ClassList;

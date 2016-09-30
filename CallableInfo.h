@@ -10,7 +10,7 @@
 namespace xts
 {
 
-	class METADATA_DECL CallableInfo
+	class XTS_DECL CallableInfo
 	{
 	public:
 		typedef std::vector < Variable > ParamArray;

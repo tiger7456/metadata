@@ -18,21 +18,21 @@
 
 #if defined(_WIN32)
 	#ifdef METADATA_EXPORT
-	#define METADATA_DECL __declspec(dllexport)
+	#define XTS_DECL __declspec(dllexport)
 	#else
-	#define METADATA_DECL __declspec(dllimport)
+	#define XTS_DECL __declspec(dllimport)
 	#endif
 #elif defined(__clang__)
 	#ifdef METADATA_EXPORT
-	#define METADATA_DECL __attribute__ ((__type_visibility__("default")))
+	#define XTS_DECL __attribute__ ((__type_visibility__("default")))
 	#else
-	#define METADATA_DECL
+	#define XTS_DECL
 	#endif
 #elif defined(__GNUC__)
 	#ifdef METADATA_EXPORT
-	#define METADATA_DECL __declspec(dllexport)
+	#define XTS_DECL __declspec(dllexport)
 	#else
-	#define METADATA_DECL __declspec(dllimport)
+	#define XTS_DECL __declspec(dllimport)
 	#endif
 #endif
 

@@ -10,7 +10,7 @@
 namespace xts
 {
 
-	class METADATA_DECL AbstractVariable
+	class XTS_DECL AbstractVariable
 	{
 	public:
 		virtual ~AbstractVariable();
@@ -182,7 +182,7 @@ namespace xts
 		bool _IsPtr;
 	};
 
-	class METADATA_DECL Variable
+	class XTS_DECL Variable
 	{
 	public:
 		Variable();

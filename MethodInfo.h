@@ -11,7 +11,7 @@ namespace xts
 {
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8 >
-	class MethodInfo8 : public CallableInfo
+	class XTS_DECL MethodInfo8 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -63,7 +63,7 @@ namespace xts
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7 >
-	class MethodInfo7 : public CallableInfo
+	class XTS_DECL MethodInfo7 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -113,7 +113,7 @@ namespace xts
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6 >
-	class MethodInfo6 : public CallableInfo
+	class XTS_DECL MethodInfo6 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -161,7 +161,7 @@ namespace xts
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5 >
-	class MethodInfo5 : public CallableInfo
+	class XTS_DECL MethodInfo5 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -207,7 +207,7 @@ namespace xts
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4 >
-	class MethodInfo4 : public CallableInfo
+	class XTS_DECL MethodInfo4 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -250,7 +250,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT, typename OT, typename A1, typename A2, typename A3 > class MethodInfo3 : public CallableInfo
+	template < typename RT, typename OT, typename A1, typename A2, typename A3 > class XTS_DECL MethodInfo3 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -291,7 +291,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT, typename OT, typename A1, typename A2 > class MethodInfo2 : public CallableInfo
+	template < typename RT, typename OT, typename A1, typename A2 > class XTS_DECL MethodInfo2 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -330,7 +330,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT, typename OT, typename A1 > class MethodInfo1 : public CallableInfo
+	template < typename RT, typename OT, typename A1 > class XTS_DECL MethodInfo1 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -367,7 +367,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT, typename OT > class MethodInfo0 : public CallableInfo
+	template < typename RT, typename OT > class XTS_DECL MethodInfo0 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -404,59 +404,59 @@ namespace xts
 
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8 >
-	CallableInfo *
+	XTS_DECL CallableInfo *
 	MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2, A3, A4, A5, A6, A7, A8 ), const std::string &pname = "" )
 	{
 		return new MethodInfo8 < RT, OT, A1, A2, A3, A4, A5, A6, A7, A8 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7 >
-	CallableInfo *
+	XTS_DECL CallableInfo *
 	MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2, A3, A4, A5, A6, A7 ), const std::string &pname = "" )
 	{
 		return new MethodInfo7 < RT, OT, A1, A2, A3, A4, A5, A6, A7 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6 >
-	CallableInfo *
+	XTS_DECL CallableInfo *
 	MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2, A3, A4, A5, A6 ), const std::string &pname = "" )
 	{
 		return new MethodInfo6 < RT, OT, A1, A2, A3, A4, A5, A6 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4, typename A5 >
-	CallableInfo *
+	XTS_DECL CallableInfo *
 	MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2, A3, A4, A5 ), const std::string &pname = "" )
 	{
 		return new MethodInfo5 < RT, OT, A1, A2, A3, A4, A5 >(pname == "" ? name : pname, func);
 	};
 
-	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4 > CallableInfo *
+	template < typename RT, typename OT, typename A1, typename A2, typename A3, typename A4 > XTS_DECL CallableInfo *
 	MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2, A3, A4 ), const std::string &pname = "" )
 	{
 		return new MethodInfo4 < RT, OT, A1, A2, A3, A4 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2, typename A3 >
-	CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2, A3 ), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2, A3 ), const std::string &pname = "" )
 	{
 		return new MethodInfo3 < RT, OT, A1, A2, A3 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename OT, typename A1, typename A2 >
-	CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2 ), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)( A1, A2 ), const std::string &pname = "" )
 	{
 		return new MethodInfo2 < RT, OT, A1, A2 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename OT, typename A1 >
-	CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)( A1 ), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)( A1 ), const std::string &pname = "" )
 	{
 		return new MethodInfo1 < RT, OT, A1 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename OT >
-	CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)(), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeMethodInfo( const std::string &name, RT(OT::*func)(), const std::string &pname = "" )
 	{
 		return new MethodInfo0 < RT, OT >(pname == "" ? name : pname, func);
 	};

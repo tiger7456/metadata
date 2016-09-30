@@ -10,7 +10,7 @@
 namespace xts
 {
 
-	class METADATA_DECL ConstructInfo
+	class XTS_DECL ConstructInfo
 	{
 	public:
 		virtual ~ConstructInfo()
@@ -38,7 +38,7 @@ namespace xts
 	}
 
 
-	class METADATA_DECL DestructInfo
+	class XTS_DECL DestructInfo
 	{
 	public:
 		virtual ~DestructInfo()

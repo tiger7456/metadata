@@ -11,7 +11,7 @@ namespace xts
 {
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8 >
-	class CallbackInfo8 : public CallableInfo
+	class XTS_DECL CallbackInfo8 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -69,7 +69,7 @@ namespace xts
 	};
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7 >
-	class CallbackInfo7 : public CallableInfo
+	class XTS_DECL CallbackInfo7 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -125,7 +125,7 @@ namespace xts
 	};
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6 >
-	class CallbackInfo6 : public CallableInfo
+	class XTS_DECL CallbackInfo6 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -179,7 +179,7 @@ namespace xts
 	};
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5 >
-	class CallbackInfo5 : public CallableInfo
+	class XTS_DECL CallbackInfo5 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -231,7 +231,7 @@ namespace xts
 	};
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4 >
-	class CallbackInfo4 : public CallableInfo
+	class XTS_DECL CallbackInfo4 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -280,7 +280,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT, typename A1, typename A2, typename A3 > class CallbackInfo3 : public CallableInfo
+	template < typename RT, typename A1, typename A2, typename A3 > class XTS_DECL CallbackInfo3 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -327,7 +327,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT, typename A1, typename A2 > class CallbackInfo2 : public CallableInfo
+	template < typename RT, typename A1, typename A2 > class XTS_DECL CallbackInfo2 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -372,7 +372,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT, typename A1 > class CallbackInfo1 : public CallableInfo
+	template < typename RT, typename A1 > class XTS_DECL CallbackInfo1 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -415,7 +415,7 @@ namespace xts
 		function_type _func;
 	};
 
-	template < typename RT > class CallbackInfo0 : public CallableInfo
+	template < typename RT > class XTS_DECL CallbackInfo0 : public CallableInfo
 	{
 	public:
 		typedef RT result_type;
@@ -458,58 +458,58 @@ namespace xts
 
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8 >
-	CallableInfo *
+	XTS_DECL CallableInfo *
 	MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2, A3, A4, A5, A6, A7, A8 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo8 < RT, A1, A2, A3, A4, A5, A6, A7, A8 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7 >
-	CallableInfo *
+	XTS_DECL CallableInfo *
 	MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2, A3, A4, A5, A6, A7 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo7 < RT, A1, A2, A3, A4, A5, A6, A7 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6 >
-	CallableInfo *
+	XTS_DECL CallableInfo *
 	MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2, A3, A4, A5, A6 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo6 < RT, A1, A2, A3, A4, A5, A6 >(pname == "" ? name : pname, func);
 	};
 
-	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5 > CallableInfo *
+	template < typename RT, typename A1, typename A2, typename A3, typename A4, typename A5 > XTS_DECL CallableInfo *
 	MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2, A3, A4, A5 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo5 < RT, A1, A2, A3, A4, A5 >(pname == "" ? name : pname, func);
 	};
 
-	template < typename RT, typename A1, typename A2, typename A3, typename A4 > CallableInfo *
+	template < typename RT, typename A1, typename A2, typename A3, typename A4 > XTS_DECL CallableInfo *
 	MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2, A3, A4 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo4 < RT, A1, A2, A3, A4 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename A1, typename A2, typename A3 >
-	CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2, A3 ), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2, A3 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo3 < RT, A1, A2, A3 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename A1, typename A2 >
-	CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2 ), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)( A1, A2 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo2 < RT, A1, A2 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT, typename A1 >
-	CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)( A1 ), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)( A1 ), const std::string &pname = "" )
 	{
 		return new CallbackInfo1 < RT, A1 >(pname == "" ? name : pname, func);
 	};
 
 	template < typename RT >
-	CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)(), const std::string &pname = "" )
+	XTS_DECL CallableInfo * MakeCallbackInfo( const std::string &name, RT(* func)(), const std::string &pname = "" )
 	{
 
 		return new CallbackInfo0 < RT >(pname == "" ? name : pname, func);

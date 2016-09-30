@@ -4,54 +4,9 @@
 
 #include "MetaType.h"
 
-namespace __Register_Basic_Type_
-{
-	struct RegisterBasicType
-	{
-		RegisterBasicType()
-		{
-			xts::ClassInfo * Class = new xts::ClassInfo("null", typeid(nullptr).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("bool", typeid(bool).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int8_t", typeid(int8_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint8_t", typeid(uint8_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int16_t", typeid(int16_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint16_t", typeid(uint16_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int32_t", typeid(int32_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint32_t", typeid(uint32_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int64_t", typeid(int64_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint64_t", typeid(uint64_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("float", typeid(float).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("double", typeid(double).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-		}
-	};
-
-	static RegisterBasicType g__RegisterBasicType_RegisterBasicType_;
-}
-
 using namespace xts;
+
+static RegisterBasicType g__RegisterBasicType_RegisterBasicType_;
 
 MetaType::MetaType()
 {
