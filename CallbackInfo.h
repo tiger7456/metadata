@@ -55,13 +55,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]), UnParam < param2_type >(params[1]), UnParam < param3_type >(params[2]), UnParam < param4_type >(params[3]), UnParam < param5_type >(params[4]), UnParam < param6_type >(params[5]), UnParam < param7_type >(params[6]), UnParam < param8_type >(params[7]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >(), params[1].Value < param2_type >(), params[2].Value < param3_type >(), params[3].Value < param4_type >(), params[4].Value < param5_type >(), params[5].Value < param6_type >(), params[6].Value < param7_type >(), params[7].Value < param8_type >());
 		}
 
 	private:
@@ -111,13 +105,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]), UnParam < param2_type >(params[1]), UnParam < param3_type >(params[2]), UnParam < param4_type >(params[3]), UnParam < param5_type >(params[4]), UnParam < param6_type >(params[5]), UnParam < param7_type >(params[6]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >(), params[1].Value < param2_type >(), params[2].Value < param3_type >(), params[3].Value < param4_type >(), params[4].Value < param5_type >(), params[5].Value < param6_type >(), params[6].Value < param7_type >());
 		}
 
 	private:
@@ -165,13 +153,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]), UnParam < param2_type >(params[1]), UnParam < param3_type >(params[2]), UnParam < param4_type >(params[3]), UnParam < param5_type >(params[4]), UnParam < param6_type >(params[5]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >(), params[1].Value < param2_type >(), params[2].Value < param3_type >(), params[3].Value < param4_type >(), params[4].Value < param5_type >(), params[5].Value < param6_type >());
 		}
 
 	private:
@@ -217,13 +199,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]), UnParam < param2_type >(params[1]), UnParam < param3_type >(params[2]), UnParam < param4_type >(params[3]), UnParam < param5_type >(params[4]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >(), params[1].Value < param2_type >(), params[2].Value < param3_type >(), params[3].Value < param4_type >(), params[4].Value < param5_type >());
 		}
 
 	private:
@@ -267,13 +243,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]), UnParam < param2_type >(params[1]), UnParam < param3_type >(params[2]), UnParam < param4_type >(params[3]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >(), params[1].Value < param2_type >(), params[2].Value < param3_type >(), params[3].Value < param4_type >());
 		}
 
 	private:
@@ -314,13 +284,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]), UnParam < param2_type >(params[1]), UnParam < param3_type >(params[2]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >(), params[1].Value < param2_type >(), params[2].Value < param3_type >());
 		}
 
 	private:
@@ -359,13 +323,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]), UnParam < param2_type >(params[1]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >(), params[1].Value < param2_type >());
 		}
 
 	private:
@@ -402,13 +360,7 @@ namespace xts
 		{
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
-			return IsCallbackSame < result_type, void >::Call(_func, UnParam < param1_type >(params[0]));
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
+			return IsCallbackSame < result_type, void >::Call(_func, params[0].Value < param1_type >());
 		}
 
 	private:
@@ -444,12 +396,6 @@ namespace xts
 			assert(params.size() == _ParamTypes.size() && "the number of parameters does not match !");
 
 			return IsCallbackSame < result_type, void >::Call(_func);
-		}
-
-	private:
-		template < typename T > T UnParam( Variable &var )
-		{
-			return var.Value < T >();
 		}
 
 	private:

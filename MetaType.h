@@ -59,66 +59,19 @@ namespace xts
 		size_t FindClassIdByTypeId( size_t TypeId );
 
 	private:
-		ClassInfoByIdMap _ClassInfoByIdMap;
-
-		ClassInfoIdByTypeIdMap _ClassInfoIdByTypeIdMap;
-
 		CallbackByIdMap _CallbackByIdMap;
-	};
-
-
-
-	class XTS_DECL RegisterBasicType
-	{
-	public:
-		RegisterBasicType()
-		{
-			xts::ClassInfo * Class = new xts::ClassInfo("null", typeid(nullptr).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("bool", typeid(bool).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int8_t", typeid(int8_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint8_t", typeid(uint8_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int16_t", typeid(int16_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint16_t", typeid(uint16_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int32_t", typeid(int32_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint32_t", typeid(uint32_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("int64_t", typeid(int64_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("uint64_t", typeid(uint64_t).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("float", typeid(float).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-
-			Class = new xts::ClassInfo("double", typeid(double).hash_code());
-			xts::MetaType::Instance()->RegisterClassInfo(Class);
-		}
+		ClassInfoByIdMap _ClassInfoByIdMap;
+		ClassInfoIdByTypeIdMap _ClassIdByTypeIdMap;
 	};
 
 }
 
 
 #define META_BEGIN( THISTYPE ) \
-struct THISTYPE##_XTS \
+struct Register_Class_##THISTYPE \
 { \
     typedef THISTYPE this_type; \
-    THISTYPE##_XTS() \
+    Register_Class_##THISTYPE() \
     { \
         ClassInfo * Class = new ClassInfo( #THISTYPE, typeid(this_type).hash_code() ); \
         xts::MetaType::Instance()->RegisterClassInfo( Class ); \
@@ -140,7 +93,7 @@ struct THISTYPE##_XTS \
 #define META_END( THISTYPE ) \
     }  \
 }; \
-static THISTYPE##_XTS __##THISTYPE##_XTS_static_;
+static Register_Class_##THISTYPE __register_class_##THISTYPE##_XTS_static_;
 
 
 #define META_REG_FUNC(CALLBACK, PN...) \
@@ -151,7 +104,7 @@ struct Register_Callback_##CALLBACK \
 		xts::MetaType::Instance()->RegisterCallbackInfo( MakeCallbackInfo(#CALLBACK, CALLBACK, ##PN) ); \
 	} \
 }; \
-static Register_Callback_##CALLBACK __register_callback_##CALLBACK__
+static Register_Callback_##CALLBACK __register_callback_##CALLBACK##_XTS_static_;
 
 
 #endif //METADATA_METATYPE_H

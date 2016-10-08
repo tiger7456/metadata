@@ -16,6 +16,54 @@ namespace xts
 		typedef std::vector < Variable > ParamArray;
 		typedef std::vector < size_t > ParamTypeArray;
 
+	public:
+		CallableInfo();
+
+		virtual ~CallableInfo();
+
+	public:
+		const std::string &GetName() const;
+
+		size_t GetReturnType() const;
+
+		size_t GetParamCount() const;
+
+		const ParamTypeArray &GetParamTypes() const;
+
+		CallableType GetType() const;
+
+	public:
+		template < typename ... PARAMS > Variable Invoke( PARAMS ... params )
+		{
+			ParamArray Params;
+
+			Unpack(Params, params...);
+
+			return Run(Params);
+		}
+
+		Variable Invoke()
+		{
+			ParamArray Params;
+
+			return Run(Params);
+		}
+
+	protected:
+		virtual Variable Run( ParamArray &params ) = 0;
+
+	private:
+		template < typename T, typename ... TS > void Unpack( ParamArray &params, T &t, TS...ts )
+		{
+			params.push_back(t);
+			Unpack(params, ts...);
+		}
+
+		template < typename T > void Unpack( ParamArray &params, T &t )
+		{
+			params.push_back(t);
+		}
+
 	protected:
 		template < class _Tp, class _Up > struct IsMethodSame
 		{
@@ -52,54 +100,6 @@ namespace xts
 				return Variable();
 			}
 		};
-
-	public:
-		CallableInfo();
-
-		virtual ~CallableInfo();
-
-	public:
-		const std::string &GetName() const;
-
-		size_t GetReturnType() const;
-
-		size_t GetParamCount() const;
-
-		const ParamTypeArray &GetParamTypes() const;
-
-		CallableType GetType() const;
-
-	protected:
-		virtual Variable Run( ParamArray &params ) = 0;
-
-	public:
-		template < typename ... PARAMS > Variable Invoke( PARAMS ... params )
-		{
-			ParamArray Params;
-
-			Unpack(Params, params...);
-
-			return Run(Params);
-		}
-
-		Variable Invoke()
-		{
-			ParamArray Params;
-
-			return Run(Params);
-		}
-
-	private:
-		template < typename T, typename ... TS > void Unpack( ParamArray &params, T &t, TS...ts )
-		{
-			params.push_back(t);
-			Unpack(params, ts...);
-		}
-
-		template < typename T > void Unpack( ParamArray &params, T &t )
-		{
-			params.push_back(t);
-		}
 
 	protected:
 		std::string _Name;

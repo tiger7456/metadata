@@ -21,9 +21,8 @@ namespace xts
 	class XTS_DECL ClassInfo
 	{
 	public:
-		typedef std::list < ClassInfo * > ClassList;
+		typedef std::list < ClassInfo * > ClassInfoList;
 		typedef std::map < std::string, CallableInfo * > MethodInfoMap;
-		typedef std::map < std::string, CallableInfo * > CallbackInfoMap;
 		typedef std::map < std::string, PropertyInfo * > PropertyInfoMap;
 
 	public:
@@ -42,7 +41,7 @@ namespace xts
 
 		void SetSuperClass( ClassInfo * super );
 
-		ClassList GetSuperClassList();
+		ClassInfoList GetSuperClassList();
 
 		ConstructInfo * GetConstructInfo();
 
@@ -61,7 +60,7 @@ namespace xts
 		bool PushProperty( PropertyInfo * info );
 
 	private:
-		void PushClassInfoToList( ClassList &list );
+		void PushClassInfoToList( ClassInfoList &list );
 
 	private:
 		size_t _Id;

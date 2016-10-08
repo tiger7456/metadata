@@ -67,7 +67,7 @@ void ClassInfo::SetSuperClass( ClassInfo * super )
 	_Super = super;
 }
 
-ClassInfo::ClassList ClassInfo::GetSuperClassList()
+ClassInfo::ClassInfoList ClassInfo::GetSuperClassList()
 {
 	std::list < ClassInfo * > list;
 
@@ -158,7 +158,7 @@ bool ClassInfo::PushProperty( PropertyInfo * info )
 	return true;
 }
 
-void ClassInfo::PushClassInfoToList( ClassInfo::ClassList &list )
+void ClassInfo::PushClassInfoToList( ClassInfo::ClassInfoList &list )
 {
 	if( _Super )
 	{
