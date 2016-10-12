@@ -98,6 +98,25 @@ void MetaType::RegisterCallbackInfo( CallableInfo * Info )
 	_CallbackByIdMap.insert(CallbackByIdMap::value_type(id, Info));
 }
 
+bool MetaType::RegisterEnumInfo( const std::string &Owner, const std::string &Name, size_t Data )
+{
+	auto it = _EnumInfoByNameMap.find(Owner);
+
+	if(it == _EnumInfoByNameMap.end())
+	{
+		_EnumInfoByNameMap.insert(EnumInfoByNameMap::value_type(Owner, EnumInfoMap()));
+	}
+
+	auto eit = it->second.find(Name);
+	if(eit == it->second.end())
+	{
+		_EnumInfoByNameMap[Owner][Name] = Data;
+		return true;
+	}
+
+	return false;
+}
+
 ClassInfo * MetaType::FindClassInfoById( size_t ClassId )
 {
 	auto it = _ClassInfoByIdMap.find(ClassId);
@@ -158,4 +177,20 @@ size_t MetaType::FindClassIdByTypeId( size_t TypeId )
 		return it->second;
 
 	return 0;
+}
+
+size_t MetaType::FindEnumInfo( const std::string &Owner, const std::string &Name )
+{
+	auto it = _EnumInfoByNameMap.find(Owner);
+
+	if(it != _EnumInfoByNameMap.end())
+	{
+		auto eit = it->second.find(Name);
+		if(eit != it->second.end())
+		{
+			return eit->second;
+		}
+	}
+
+	return SIZE_T_MAX;
 }

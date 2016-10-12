@@ -20,8 +20,8 @@ class super
 {
 };
 
-META_BEGIN(super)
-META_END(super)
+META_CLASS_BEGIN(super)
+META_CLASS_END(super)
 
 
 class test : public super
@@ -59,15 +59,26 @@ public:
 	}
 };
 
-META_BEGIN(test)
+META_CLASS_BEGIN(test)
 		REG_SUPER(super);
 		REG_PROPERTY(i);
 		REG_METHOD(func);
 		REG_METHOD(funca, "funcaa");
 		REG_METHOD_STATIC(funci, "funcii");
-META_END(test)
+META_CLASS_END(test)
 
 META_REG_FUNC(func, "funca");
+
+enum class aa
+{
+	a1,a2,a3
+};
+
+META_ENUM_BEGIN(aa)
+		REG_ENUM(a1, aa::a1);
+		REG_ENUM(a2, aa::a2);
+		REG_ENUM(a3, aa::a3);
+META_ENUM_END(aa)
 
 
 int main()

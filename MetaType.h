@@ -33,6 +33,10 @@ namespace xts
 
 		typedef std::map < size_t, size_t > ClassInfoIdByTypeIdMap;
 
+		typedef std::map<std::string, size_t > EnumInfoMap;
+
+		typedef std::map<std::string, EnumInfoMap> EnumInfoByNameMap;
+
 	public:
 		MetaType();
 
@@ -45,6 +49,8 @@ namespace xts
 
 		void RegisterCallbackInfo( CallableInfo * Info );
 
+		bool RegisterEnumInfo( const std::string& Owner, const std::string& Name, size_t Data );
+
 		ClassInfo * FindClassInfoById( size_t ClassId );
 
 		ClassInfo * FindClassInfoByName( const std::string &ClassName );
@@ -53,6 +59,8 @@ namespace xts
 
 		CallableInfo * FindCallbackInfoByName( const std::string &CallbackName );
 
+		size_t FindEnumInfo( const std::string& Owner, const std::string& Name );
+
 	private:
 		void RegisterClassIdByTypeId( size_t ClassId, size_t Typeid );
 
@@ -60,6 +68,8 @@ namespace xts
 
 	private:
 		CallbackByIdMap _CallbackByIdMap;
+		EnumInfoByNameMap _EnumInfoByNameMap;
+
 		ClassInfoByIdMap _ClassInfoByIdMap;
 		ClassInfoIdByTypeIdMap _ClassIdByTypeIdMap;
 	};
@@ -67,7 +77,7 @@ namespace xts
 }
 
 
-#define META_BEGIN( THISTYPE ) \
+#define META_CLASS_BEGIN( THISTYPE ) \
 struct Register_Class_##THISTYPE \
 { \
     typedef THISTYPE this_type; \
@@ -90,7 +100,7 @@ struct Register_Class_##THISTYPE \
 #define REG_METHOD_STATIC(CALLBACK, PN...) \
 	Class->PushMethod( MakeCallbackInfo(#CALLBACK, &this_type::CALLBACK, ##PN) )
 
-#define META_END( THISTYPE ) \
+#define META_CLASS_END( THISTYPE ) \
     }  \
 }; \
 static Register_Class_##THISTYPE __register_class_##THISTYPE##_XTS_static_;
@@ -106,5 +116,19 @@ struct Register_Callback_##CALLBACK \
 }; \
 static Register_Callback_##CALLBACK __register_callback_##CALLBACK##_XTS_static_;
 
+
+#define META_ENUM_BEGIN(OWNER) \
+struct Register_Enum_##OWNER \
+{ \
+	Register_Enum_##OWNER() \
+	{ \
+		const char * Owner = #OWNER;
+
+#define REG_ENUM(NAME, DATA) xts::MetaType::Instance()->RegisterEnumInfo( Owner, #NAME, (size_t)DATA )
+
+#define META_ENUM_END(OWNER) \
+	} \
+}; \
+static Register_Enum_##OWNER __register_enum_##OWNER##_XTS_static_;
 
 #endif //METADATA_METATYPE_H
