@@ -52,6 +52,8 @@ public:
 
 static RegisterBasicType g__RegisterBasicType_RegisterBasicType_;
 
+std::__murmur2_or_cityhash < size_t > MetaType::_Hash;
+
 MetaType::MetaType()
 {
 
@@ -77,38 +79,43 @@ MetaType * MetaType::Instance()
 	return &meta;
 }
 
-void MetaType::RegisterClassInfo( ClassInfo * Info )
+void MetaType::RegisterClassInfo( ClassInfo * Info, const std::string &Space )
 {
-	auto it = _ClassInfoByIdMap.find(Info->GetClassId());
+	size_t id = _Hash(Space.c_str(), Space.size());
+	
+	auto it = _ClassInfoFromNameSpaceMap[id].find(Info->GetClassId());
 
-	assert(it == _ClassInfoByIdMap.end() && "");
+	assert(it == _ClassInfoFromNameSpaceMap[id].end() && "");
 
-	_ClassInfoByIdMap.insert(ClassInfoByIdMap::value_type(Info->GetClassId(), Info));
+	_ClassInfoFromNameSpaceMap[id].insert(std::make_pair(Info->GetClassId(), Info));
+	
+	_ClassInfoByIdMap.insert(std::make_pair(Info->GetClassId(), Info));
 }
 
-void MetaType::RegisterCallbackInfo( CallableInfo * Info )
+void MetaType::RegisterCallbackInfo( CallableInfo * Info, const std::string &Space )
 {
-	static std::__murmur2_or_cityhash < size_t > hash;
-	size_t id = hash(Info->GetName().c_str(), Info->GetName().size());
+	size_t id = _Hash(Space.c_str(), Space.size());
 
-	auto it = _CallbackByIdMap.find(id);
+	auto it = _CallbackInfoFromNameSpaceMap[id].find(Info->GetCallableId());
 
-	assert(it == _CallbackByIdMap.end() && "");
+	assert(it == _CallbackInfoFromNameSpaceMap[id].end() && "");
 
-	_CallbackByIdMap.insert(CallbackByIdMap::value_type(id, Info));
+	_CallbackInfoFromNameSpaceMap[id].insert(std::make_pair(Info->GetCallableId(), Info));
+	
+	_CallbackByIdMap.insert(std::make_pair(Info->GetCallableId(), Info));
 }
 
 bool MetaType::RegisterEnumInfo( const std::string &Owner, const std::string &Name, size_t Data )
 {
 	auto it = _EnumInfoByNameMap.find(Owner);
 
-	if(it == _EnumInfoByNameMap.end())
+	if( it == _EnumInfoByNameMap.end())
 	{
 		_EnumInfoByNameMap.insert(EnumInfoByNameMap::value_type(Owner, EnumInfoMap()));
 	}
 
 	auto eit = it->second.find(Name);
-	if(eit == it->second.end())
+	if( eit == it->second.end())
 	{
 		_EnumInfoByNameMap[Owner][Name] = Data;
 		return true;
@@ -127,15 +134,22 @@ ClassInfo * MetaType::FindClassInfoById( size_t ClassId )
 	return nullptr;
 }
 
-ClassInfo * MetaType::FindClassInfoByName( const std::string &ClassName )
+ClassInfo * MetaType::FindClassInfoByName( const std::string &ClassName, const std::string &Space )
 {
-	static std::__murmur2_or_cityhash < size_t > hash;
-	size_t id = hash(ClassName.c_str(), ClassName.size());
+	size_t space = _Hash(Space.c_str(), Space.size());
 
-	auto it = _ClassInfoByIdMap.find(id);
+	auto it = _ClassInfoFromNameSpaceMap.find(space);
+	if( it != _ClassInfoFromNameSpaceMap.end())
+	{
+		size_t id = _Hash(ClassName.c_str(), ClassName.size());
 
-	if( it != _ClassInfoByIdMap.end())
-		return it->second;
+		auto item = it->second.find(id);
+		
+		if(item != it->second.end())
+		{
+			return item->second;
+		}
+	}
 
 	return nullptr;
 }
@@ -150,16 +164,22 @@ CallableInfo * MetaType::FindCallbackInfoById( size_t CallbackId )
 	return nullptr;
 }
 
-CallableInfo * MetaType::FindCallbackInfoByName( const std::string &CallbackName )
+CallableInfo * MetaType::FindCallbackInfoByName( const std::string &CallbackName, const std::string &Space )
 {
-	static std::__murmur2_or_cityhash < size_t > hash;
-	size_t id = hash(CallbackName.c_str(), CallbackName.size());
+	size_t space = _Hash(Space.c_str(), Space.size());
 
+	auto it = _CallbackInfoFromNameSpaceMap.find(space);
 
-	auto it = _CallbackByIdMap.find(id);
+	if( it != _CallbackInfoFromNameSpaceMap.end())
+	{
+		size_t id = _Hash(CallbackName.c_str(), CallbackName.size());
 
-	if( it != _CallbackByIdMap.end())
-		return it->second;
+		auto item = it->second.find(id);
+		if(item != it->second.end())
+		{
+			return item->second;
+		}
+	}
 
 	return nullptr;
 }
@@ -183,10 +203,10 @@ size_t MetaType::FindEnumInfo( const std::string &Owner, const std::string &Name
 {
 	auto it = _EnumInfoByNameMap.find(Owner);
 
-	if(it != _EnumInfoByNameMap.end())
+	if( it != _EnumInfoByNameMap.end())
 	{
 		auto eit = it->second.find(Name);
-		if(eit != it->second.end())
+		if( eit != it->second.end())
 		{
 			return eit->second;
 		}

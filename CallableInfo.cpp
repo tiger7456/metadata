@@ -6,6 +6,8 @@
 
 using namespace xts;
 
+std::__murmur2_or_cityhash < size_t > CallableInfo::_Hash;
+
 CallableInfo::CallableInfo()
 	:_ParamCount(0), _ReturnType(0)
 {
@@ -40,4 +42,9 @@ size_t CallableInfo::GetReturnType() const
 CallableType CallableInfo::GetType() const
 {
 	return _Type;
+}
+
+size_t CallableInfo::GetCallableId() const
+{
+	return _CallableId;
 }

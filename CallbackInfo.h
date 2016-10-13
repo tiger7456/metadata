@@ -31,7 +31,7 @@ namespace xts
 		CallbackInfo8( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 8;
 			_ReturnType = typeid(result_type).hash_code();
@@ -82,7 +82,7 @@ namespace xts
 		CallbackInfo7( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 7;
 			_ReturnType = typeid(result_type).hash_code();
@@ -131,7 +131,7 @@ namespace xts
 		CallbackInfo6( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 6;
 			_ReturnType = typeid(result_type).hash_code();
@@ -178,7 +178,7 @@ namespace xts
 		CallbackInfo5( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 5;
 			_ReturnType = typeid(result_type).hash_code();
@@ -223,7 +223,7 @@ namespace xts
 		CallbackInfo4( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 4;
 			_ReturnType = typeid(result_type).hash_code();
@@ -265,7 +265,7 @@ namespace xts
 		CallbackInfo3( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 3;
 			_ReturnType = typeid(result_type).hash_code();
@@ -305,7 +305,7 @@ namespace xts
 		CallbackInfo2( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 2;
 			_ReturnType = typeid(result_type).hash_code();
@@ -343,7 +343,7 @@ namespace xts
 		CallbackInfo1( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 1;
 			_ReturnType = typeid(result_type).hash_code();
@@ -379,7 +379,7 @@ namespace xts
 		CallbackInfo0( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_CALLBACK;
 			_ParamCount = 0;
 			_ReturnType = typeid(result_type).hash_code();

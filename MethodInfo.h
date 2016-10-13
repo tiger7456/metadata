@@ -31,7 +31,7 @@ namespace xts
 		MethodInfo8( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 9;
 			_ReturnType = typeid(result_type).hash_code();
@@ -82,7 +82,7 @@ namespace xts
 		MethodInfo7( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 8;
 			_ReturnType = typeid(result_type).hash_code();
@@ -131,7 +131,7 @@ namespace xts
 		MethodInfo6( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 7;
 			_ReturnType = typeid(result_type).hash_code();
@@ -178,7 +178,7 @@ namespace xts
 		MethodInfo5( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 6;
 			_ReturnType = typeid(result_type).hash_code();
@@ -223,7 +223,7 @@ namespace xts
 		MethodInfo4( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 5;
 			_ReturnType = typeid(result_type).hash_code();
@@ -266,7 +266,7 @@ namespace xts
 		MethodInfo3( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 4;
 			_ReturnType = typeid(result_type).hash_code();
@@ -306,7 +306,7 @@ namespace xts
 		MethodInfo2( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 3;
 			_ReturnType = typeid(result_type).hash_code();
@@ -344,7 +344,7 @@ namespace xts
 		MethodInfo1( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 2;
 			_ReturnType = typeid(result_type).hash_code();
@@ -380,7 +380,7 @@ namespace xts
 		MethodInfo0( const std::string &name, const function_type &func )
 				:_func(func)
 		{
-			_Name = name;
+			_Name = name; _CallableId = _Hash(_Name.c_str(), _Name.size());
 			_Type = CallableType::T_METHOD;
 			_ParamCount = 1;
 			_ReturnType = typeid(result_type).hash_code();

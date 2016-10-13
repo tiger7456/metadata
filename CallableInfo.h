@@ -32,6 +32,8 @@ namespace xts
 
 		CallableType GetType() const;
 
+		size_t GetCallableId() const;
+
 	public:
 		template < typename ... PARAMS > Variable Invoke( PARAMS ... params )
 		{
@@ -103,10 +105,13 @@ namespace xts
 
 	protected:
 		std::string _Name;
+		size_t _CallableId;
 		CallableType _Type;
 		size_t _ParamCount;
 		size_t _ReturnType;
 		ParamTypeArray _ParamTypes;
+
+		static std::__murmur2_or_cityhash < size_t > _Hash;
 	};
 
 }
