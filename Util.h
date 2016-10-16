@@ -36,6 +36,8 @@
 	#endif
 #endif
 
+static std::__murmur2_or_cityhash < size_t > _Hash;
+
 namespace xts
 {
 

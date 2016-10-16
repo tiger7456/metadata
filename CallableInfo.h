@@ -110,8 +110,6 @@ namespace xts
 		size_t _ParamCount;
 		size_t _ReturnType;
 		ParamTypeArray _ParamTypes;
-
-		static std::__murmur2_or_cityhash < size_t > _Hash;
 	};
 
 }

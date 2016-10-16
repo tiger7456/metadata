@@ -29,17 +29,13 @@ namespace xts
 	public:
 		typedef std::map < size_t, ClassInfo * > ClassInfoByIdMap;
 
-		typedef std::map < size_t, std::map < size_t, ClassInfo * > > ClassInfoFromNameSpaceMap;
-
 		typedef std::map < size_t, CallableInfo * > CallbackInfoByIdMap;
-
-		typedef std::map < size_t, std::map < size_t, CallableInfo * > > CallbackInfoFromNameSpaceMap;
 
 		typedef std::map < size_t, size_t > ClassInfoIdByTypeIdMap;
 
 		typedef std::map < std::string, size_t > EnumInfoMap;
 
-		typedef std::map < std::string, EnumInfoMap > EnumInfoByNameMap;
+		typedef std::map < size_t, size_t > EnumInfoByIdMap;
 
 	public:
 		MetaType();
@@ -49,39 +45,38 @@ namespace xts
 		static MetaType * Instance();
 
 	public:
-		void RegisterClassInfo( ClassInfo * Info, const std::string &Space = "" );
+		bool RegisterEnumInfo( const std::string &Name, size_t Val );
 
-		void RegisterCallbackInfo( CallableInfo * Info, const std::string &Space = "" );
+		void RegisterClassInfo( ClassInfo * Info );
 
-		bool RegisterEnumInfo( const std::string &Owner, const std::string &Name, size_t Data );
+		void RegisterCallbackInfo( CallableInfo * Info );
 
-		ClassInfo * FindClassInfoById( size_t ClassId );
 
-		ClassInfo * FindClassInfoByName( const std::string &ClassName, const std::string &Space = "" );
+		size_t FindEnumInfoById( size_t Id);
 
-		CallableInfo * FindCallbackInfoById( size_t CallbackId );
+		size_t FindEnumInfoByName( const std::string &Name );
 
-		CallableInfo * FindCallbackInfoByName( const std::string &CallbackName, const std::string &Space = "" );
+		ClassInfo * FindClassInfoById( size_t Id );
 
-		size_t FindEnumInfo( const std::string &Owner, const std::string &Name );
+		ClassInfo * FindClassInfoByName( const std::string &Name );
+
+		CallableInfo * FindCallbackInfoById( size_t Id );
+
+		CallableInfo * FindCallbackInfoByName( const std::string &Name );
 
 	private:
-		void RegisterClassIdByTypeId( size_t ClassId, size_t Typeid );
+		void RegisterClassIdByTypeId( size_t ClassId, size_t TypeId );
 
 		size_t FindClassIdByTypeId( size_t TypeId );
 
 	private:
-		EnumInfoByNameMap _EnumInfoByNameMap;
-
-		CallbackInfoByIdMap _CallbackByIdMap;
-		CallbackInfoFromNameSpaceMap _CallbackInfoFromNameSpaceMap;
+		EnumInfoByIdMap _EnumInfoByIdMap;
 
 		ClassInfoByIdMap _ClassInfoByIdMap;
-		ClassInfoFromNameSpaceMap _ClassInfoFromNameSpaceMap;
+
+		CallbackInfoByIdMap _CallbackByIdMap;
 
 		ClassInfoIdByTypeIdMap _ClassIdByTypeIdMap;
-
-		std::__murmur2_or_cityhash < size_t > _Hash;
 	};
 
 }
@@ -134,7 +129,7 @@ struct Register_Enum_##OWNER \
     { \
         const char * Owner = #OWNER;
 
-#define REG_ENUM( NAME, DATA ) xts::MetaType::Instance()->RegisterEnumInfo( Owner, #NAME, (size_t)DATA )
+#define REG_ENUM( NAME, DATA ) xts::MetaType::Instance()->RegisterEnumInfo( #NAME, (size_t)DATA )
 
 #define META_ENUM_END( OWNER ) \
     } \

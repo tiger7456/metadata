@@ -6,8 +6,6 @@
 
 using namespace xts;
 
-std::__murmur2_or_cityhash < size_t > CallableInfo::_Hash;
-
 CallableInfo::CallableInfo()
 	:_ParamCount(0), _ReturnType(0)
 {

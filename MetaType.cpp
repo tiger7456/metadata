@@ -52,8 +52,6 @@ public:
 
 static RegisterBasicType g__RegisterBasicType_RegisterBasicType_;
 
-std::__murmur2_or_cityhash < size_t > MetaType::_Hash;
-
 MetaType::MetaType()
 {
 
@@ -79,54 +77,46 @@ MetaType * MetaType::Instance()
 	return &meta;
 }
 
-void MetaType::RegisterClassInfo( ClassInfo * Info, const std::string &Space )
+void MetaType::RegisterClassInfo( ClassInfo * Info )
 {
-	size_t id = _Hash(Space.c_str(), Space.size());
-	
-	auto it = _ClassInfoFromNameSpaceMap[id].find(Info->GetClassId());
-
-	assert(it == _ClassInfoFromNameSpaceMap[id].end() && "");
-
-	_ClassInfoFromNameSpaceMap[id].insert(std::make_pair(Info->GetClassId(), Info));
-	
 	_ClassInfoByIdMap.insert(std::make_pair(Info->GetClassId(), Info));
 }
 
-void MetaType::RegisterCallbackInfo( CallableInfo * Info, const std::string &Space )
+void MetaType::RegisterCallbackInfo( CallableInfo * Info )
 {
-	size_t id = _Hash(Space.c_str(), Space.size());
-
-	auto it = _CallbackInfoFromNameSpaceMap[id].find(Info->GetCallableId());
-
-	assert(it == _CallbackInfoFromNameSpaceMap[id].end() && "");
-
-	_CallbackInfoFromNameSpaceMap[id].insert(std::make_pair(Info->GetCallableId(), Info));
-	
 	_CallbackByIdMap.insert(std::make_pair(Info->GetCallableId(), Info));
 }
 
-bool MetaType::RegisterEnumInfo( const std::string &Owner, const std::string &Name, size_t Data )
+bool MetaType::RegisterEnumInfo( const std::string &Name, size_t Val )
 {
-	auto it = _EnumInfoByNameMap.find(Owner);
-
-	if( it == _EnumInfoByNameMap.end())
-	{
-		_EnumInfoByNameMap.insert(EnumInfoByNameMap::value_type(Owner, EnumInfoMap()));
-	}
-
-	auto eit = it->second.find(Name);
-	if( eit == it->second.end())
-	{
-		_EnumInfoByNameMap[Owner][Name] = Data;
-		return true;
-	}
+	_EnumInfoByIdMap[_Hash(Name.c_str(), Name.size())] = Val;
 
 	return false;
 }
 
-ClassInfo * MetaType::FindClassInfoById( size_t ClassId )
+
+size_t MetaType::FindEnumInfoById( size_t Id )
 {
-	auto it = _ClassInfoByIdMap.find(ClassId);
+	auto it = _EnumInfoByIdMap.find(Id);
+
+	if(it != _EnumInfoByIdMap.end())
+	{
+		return it->second;
+	}
+
+	return 0;
+}
+
+size_t MetaType::FindEnumInfoByName( const std::string &Name )
+{
+	size_t id = _Hash(Name.c_str(), Name.size());
+
+	return FindEnumInfoById(id);
+}
+
+ClassInfo * MetaType::FindClassInfoById( size_t Id )
+{
+	auto it = _ClassInfoByIdMap.find(Id);
 
 	if( it != _ClassInfoByIdMap.end())
 		return it->second;
@@ -134,29 +124,16 @@ ClassInfo * MetaType::FindClassInfoById( size_t ClassId )
 	return nullptr;
 }
 
-ClassInfo * MetaType::FindClassInfoByName( const std::string &ClassName, const std::string &Space )
+ClassInfo * MetaType::FindClassInfoByName( const std::string &Name )
 {
-	size_t space = _Hash(Space.c_str(), Space.size());
+	size_t id = _Hash(Name.c_str(), Name.size());
 
-	auto it = _ClassInfoFromNameSpaceMap.find(space);
-	if( it != _ClassInfoFromNameSpaceMap.end())
-	{
-		size_t id = _Hash(ClassName.c_str(), ClassName.size());
-
-		auto item = it->second.find(id);
-		
-		if(item != it->second.end())
-		{
-			return item->second;
-		}
-	}
-
-	return nullptr;
+	return FindClassInfoById(id);
 }
 
-CallableInfo * MetaType::FindCallbackInfoById( size_t CallbackId )
+CallableInfo * MetaType::FindCallbackInfoById( size_t Id )
 {
-	auto it = _CallbackByIdMap.find(CallbackId);
+	auto it = _CallbackByIdMap.find(Id);
 
 	if( it != _CallbackByIdMap.end())
 		return it->second;
@@ -164,29 +141,17 @@ CallableInfo * MetaType::FindCallbackInfoById( size_t CallbackId )
 	return nullptr;
 }
 
-CallableInfo * MetaType::FindCallbackInfoByName( const std::string &CallbackName, const std::string &Space )
+CallableInfo * MetaType::FindCallbackInfoByName( const std::string &Name )
 {
-	size_t space = _Hash(Space.c_str(), Space.size());
+	size_t id = _Hash(Name.c_str(), Name.size());
 
-	auto it = _CallbackInfoFromNameSpaceMap.find(space);
-
-	if( it != _CallbackInfoFromNameSpaceMap.end())
-	{
-		size_t id = _Hash(CallbackName.c_str(), CallbackName.size());
-
-		auto item = it->second.find(id);
-		if(item != it->second.end())
-		{
-			return item->second;
-		}
-	}
-
-	return nullptr;
+	return FindCallbackInfoById(id);
 }
 
-void MetaType::RegisterClassIdByTypeId( size_t ClassId, size_t Typeid )
+
+void MetaType::RegisterClassIdByTypeId( size_t ClassId, size_t TypeId )
 {
-	_ClassIdByTypeIdMap.insert(ClassInfoIdByTypeIdMap::value_type(Typeid, ClassId));
+	_ClassIdByTypeIdMap.insert(ClassInfoIdByTypeIdMap::value_type(TypeId, ClassId));
 }
 
 size_t MetaType::FindClassIdByTypeId( size_t TypeId )
@@ -197,20 +162,4 @@ size_t MetaType::FindClassIdByTypeId( size_t TypeId )
 		return it->second;
 
 	return 0;
-}
-
-size_t MetaType::FindEnumInfo( const std::string &Owner, const std::string &Name )
-{
-	auto it = _EnumInfoByNameMap.find(Owner);
-
-	if( it != _EnumInfoByNameMap.end())
-	{
-		auto eit = it->second.find(Name);
-		if( eit != it->second.end())
-		{
-			return eit->second;
-		}
-	}
-
-	return SIZE_T_MAX;
 }
