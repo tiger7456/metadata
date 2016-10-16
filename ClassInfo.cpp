@@ -15,15 +15,13 @@ using namespace xts;
 ClassInfo::ClassInfo( const std::string &name )
 		:_Name(name), _Super(nullptr), _ConstructInfo(nullptr)
 {
-	static std::__murmur2_or_cityhash < size_t > hash;
-	_Id = hash(_Name.c_str(), _Name.size());
+	_Id = _Hash(_Name.c_str(), _Name.size());
 }
 
 ClassInfo::ClassInfo( const std::string &name, size_t id )
 		:_Name(name), _Id(0), _Super(nullptr), _ConstructInfo(nullptr)
 {
-	static std::__murmur2_or_cityhash < size_t > hash;
-	_Id = hash(_Name.c_str(), _Name.size());
+	_Id = _Hash(_Name.c_str(), _Name.size());
 
 	xts::MetaType::Instance()->RegisterClassIdByTypeId(_Id, id);
 }
